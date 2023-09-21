@@ -11,6 +11,10 @@
     background-color: white;
 
 }
+.product_rating {
+    display: flex;
+}
+
 .product_price {
     margin-top: 5px;
 }
