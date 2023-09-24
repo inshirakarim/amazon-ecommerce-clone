@@ -62,7 +62,9 @@ padding: 10px;
     align-items: center;
     display: flex;
 }
-
+.shopping_basket {
+    cursor: pointer;
+}
 .headerbasketCount {
     margin-left: 10px;
     margin-right: 10px;
