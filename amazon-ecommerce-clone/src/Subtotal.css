@@ -9,7 +9,7 @@
     justify-content: space-evenly;
     border-radius: 3px;
 }
-.proceed_checkout {
+.subtotal_button {
     background-color: #f0c140;
     border: 1px solid;
     margin-top: 10px;
