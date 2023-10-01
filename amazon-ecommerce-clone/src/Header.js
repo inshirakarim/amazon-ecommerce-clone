@@ -34,6 +34,15 @@ function Header() {
         .catch((error) => console.log(error));
     };
 
+    const extractUsername = (email) => {
+      const parts = email.split('@');
+      if (parts.length > 0) {
+        return parts[0];
+      }
+      return email; // Return the full email if "@" is not found
+    };
+  
+
     const [{basket , user}, dispatch] = useStateValue();
     const navigate = useNavigate()
 
@@ -59,7 +68,7 @@ function Header() {
     <Link to = {!authUser && '/login'}>
 
         <div onClick={userSignOut} className='header_option'>
-            <span className='header_optionLineOne'>Hello {!authUser ? 'Guest' : authUser.email}</span>
+            <span className='header_optionLineOne'>Hello {!authUser ? 'Guest' : extractUsername(authUser.email)}</span>
             <span className='header_optionLineTwo'>{authUser ? 'Sign Out' : 'Sign In'}</span>
         </div>
     </Link>
