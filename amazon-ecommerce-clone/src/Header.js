@@ -5,10 +5,45 @@ import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import {useNavigate} from "react-router-dom";
 import {Link} from 'react-router-dom';
 import { useStateValue } from './StateProvider';
+import { auth } from "./firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useEffect, useState } from "react";
 
 function Header() {
-    const [{basket}, dispatch] = useStateValue();
+    const [authUser, setAuthUser] = useState(null);
+  
+    useEffect(() => {
+      const listen = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setAuthUser(user);
+        } else {
+          setAuthUser(null);
+        }
+      });
+  
+      return () => {
+        listen();
+      };
+    }, []);
+  
+    const userSignOut = () => {
+      signOut(auth)
+        .then(() => {
+          console.log("sign out successful");
+        })
+        .catch((error) => console.log(error));
+    };
+
+    const [{basket , user}, dispatch] = useStateValue();
     const navigate = useNavigate()
+
+    // const handleAuthenticaton = () => {
+    //   if (user) {
+    //     auth.signOut();
+    //   }
+    // }
+    // const name = authUser.email;
+    // name.split("@gmail.com");
   return (
     <div className='header'>
     <Link to="/">
@@ -21,18 +56,19 @@ function Header() {
     </div>
 
     <div className='header_nav'>
-    <Link to="/login">
-        <div className='header_option'>
-            <span className='header_optionLineOne'>Hello Guest</span>
-            <span className='header_optionLineTwo'>Sign In</span>
+    <Link to = {!authUser && '/login'}>
+
+        <div onClick={userSignOut} className='header_option'>
+            <span className='header_optionLineOne'>Hello {!authUser ? 'Guest' : authUser.email}</span>
+            <span className='header_optionLineTwo'>{authUser ? 'Sign Out' : 'Sign In'}</span>
         </div>
-        </Link>
+    </Link>
         <div className='header_option'>
             <span className='header_optionLineOne'>Returns</span>
             <span className='header_optionLineTwo'>& Orders</span>
         </div>
         <div className='header_option'>
-            <span className='header_optionLineOne'>Your</span>
+        <span className='header_optionLineOne'>Your</span>
             <span className='header_optionLineTwo'>Prime</span>
         </div>
         <div className='header_optionBasket'>

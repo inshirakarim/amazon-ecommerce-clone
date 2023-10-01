@@ -1,27 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './LogIn.css'
-import { Link } from "react-router-dom";
-import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from './firebase';
 
 function LogIn() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const signIn = e => {
+    const signIn = (e) => {
         e.preventDefault();
-        //fire base login
+
+        signInWithEmailAndPassword(auth , email, password)
+            .then((userCredential) => {
+                console.log(userCredential);
+                navigate('/')
+            })
+            .catch(error => alert(error.message))
     }
 
     const register = e => {
         e.preventDefault();
-        //fire base login
+
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                console.log(userCredential);
+                // it successfully created a new user with email and password
+                if (userCredential) {
+                    navigate('/')
+                }
+            })
+            .catch(error => alert(error.message))
     }
-  return (
-    <div className='login'>
+
+    return (
+        <div className='login'>
             <Link to='/'>
                 <img
                     className="login__logo"
-                    src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png' alt='amazon_logo'
+                    src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png' alt='amazon_logo' 
                 />
             </Link>
 
