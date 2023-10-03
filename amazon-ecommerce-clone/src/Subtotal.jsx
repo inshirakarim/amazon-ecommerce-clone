@@ -1,34 +1,35 @@
-// import React from 'react'
-// import './Subtotal.css'
-// import CurrencyFormat from 'react-currency-format'
-// import { useStateValue } from './StateProvider';
-// import { getBasketTotal } from './reducer';
+import React from "react";
+import "./Subtotal.css";
+import { useStateValue } from "./StateProvider";
+import { getBasketTotal } from "./reducer";
+import { useNavigate } from "react-router-dom";
 
+function Subtotal() {
+  const navigate =  useNavigate();
+  const [{ basket }, dispatch] = useStateValue();
 
-// function Subtotal() {
-//     const [{basket}, dispatch] = useStateValue();
-//   return (
-//     <div className='subtotal'>
-//         <CurrencyFormat 
-//         renderText={(value) =>(
-//             <>
-//                 <p>
-//                 Subtotal ({basket?.length} items) : <strong>{value}</strong>
-//                 </p>
-//                 <small className='subtotal_gift'>
-//                     <input type="checkbox" />This order contains a gift
-//                 </small>
-//                 <button className='subtotal_button'>Proceed to checkout</button>
-//             </>
-//         )}
-//         decimalScale={2}
-//         value={getBasketTotal(basket)}
-//         displayType={'text'}
-//         thousandSeparator={true}
-//         prefix={"$"}
-//         />
-//     </div>
-//   )
-// }
+  // Function to format currency
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(amount);
+  };
 
-// export default Subtotal;
+  return (
+    <div className="subtotal">
+      <p>
+        Subtotal ({basket.length} items):{" "}
+        <strong>{formatCurrency(getBasketTotal(basket))}</strong>
+      </p>
+      <small className="subtotal_gift">
+        <input type="checkbox" /> This order contains a gift
+      </small>
+      <button className="subtotal_button" onClick={() => navigate("/payment")}>
+        Proceed to Checkout
+      </button>
+    </div>
+  );
+}
+
+export default Subtotal;

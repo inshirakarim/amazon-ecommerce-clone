@@ -3,6 +3,7 @@ import './Checkout.css';
 import { useStateValue } from './StateProvider';
 import CheckoutProduct from './CheckoutProduct';
 import { onAuthStateChanged } from 'firebase/auth';
+import Subtotal from "./Subtotal"
 import { auth } from './firebase';
 
 function Checkout() {
@@ -58,7 +59,9 @@ function Checkout() {
         </div>
       </div>
 
-      <div className="checkout_right">{/* Add your Subtotal component here */}</div>
+      <div className="checkout_right">
+      <Subtotal />
+      </div>
     </div>
   );
 }
