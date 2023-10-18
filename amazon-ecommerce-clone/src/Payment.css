@@ -1,4 +1,4 @@
-/* .payment {
+.payment {
     background-color: white;
 }
 
@@ -13,6 +13,18 @@
 .payment__container > h1 a {
     text-decoration: none;
 }
+
+.billing__address {
+  padding: 20px;
+  margin: 0 20px;
+  border-bottom: 1px solid lightgray;
+}
+
+.billing__title {
+  flex: 0.2;
+  margin-bottom: 20px;
+}
+
 
 .payment__section {
     display: flex;
@@ -48,4 +60,5 @@
     margin-top: 10px;
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
-  } */
+  }
+  

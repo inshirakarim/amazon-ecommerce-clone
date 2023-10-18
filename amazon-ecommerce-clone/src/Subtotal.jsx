@@ -25,7 +25,7 @@ function Subtotal() {
       <small className="subtotal_gift">
         <input type="checkbox" /> This order contains a gift
       </small>
-      <button className="subtotal_button" onClick={() => navigate("/payment")}>
+      <button className="subtotal_button" onClick={() => navigate("/billingaddress")}>
         Proceed to Checkout
       </button>
     </div>
@@ -33,3 +33,4 @@ function Subtotal() {
 }
 
 export default Subtotal;
+

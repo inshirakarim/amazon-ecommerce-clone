@@ -4,6 +4,7 @@ import Home from './Home';
 import Checkout from './Checkout';
 import LogIn from './LogIn';
 import Payment from './Payment';
+import BillingAddress from './BillingAddress'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path={"/login"} element={<LogIn />} />
             <Route path={"/checkout"} element={<Checkout />} />
             <Route path={"/payment"} element={<Payment />} />
+            <Route path={"/billingaddress"} element={<BillingAddress />} />
         </Routes>
     </Router>
     </div>
